@@ -2,42 +2,34 @@
 <!-- MPD XML Starter code - main diet 2023-2024 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="@drawable/luke_chesser_3rwagdkbf7u_unsplash">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/salutation"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
             android:text="Welcome to Mobile Platform Development"
-            />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/acknowledgement"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
             android:text="Contains BBC weather data from public RSS"
-            />
-
-        <TextView
-            android:id="@+id/rawDataDisplay"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100px"
-            android:layout_marginRight="100px"
-            android:text="Raw Data is Displayed here"
             android:textSize="20sp" />
+
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/rawDataDisplay" />
+            android:layout_marginTop="20sp" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager2"

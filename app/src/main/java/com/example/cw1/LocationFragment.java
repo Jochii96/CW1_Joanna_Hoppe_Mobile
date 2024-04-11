@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.util.Log;
 
@@ -86,9 +87,15 @@ public class LocationFragment extends Fragment {
         TextView maxTempDay2View = view.findViewById(R.id.tempMax2);
         TextView maxTempDay3View = view.findViewById(R.id.tempMax3);
 
-        TextView conDay1TextView = view.findViewById(R.id.conFor1);
-        TextView conDay2TextView = view.findViewById(R.id.conFor2);
-        TextView conDay3TextView = view.findViewById(R.id.conFor3);
+        //TextView conDay1TextView = view.findViewById(R.id.conFor1);
+        //TextView conDay2TextView = view.findViewById(R.id.conFor2);
+        //TextView conDay3TextView = view.findViewById(R.id.conFor3);
+
+        ImageView imageView1 = view.findViewById(R.id.viewDay1);
+        ImageView imageView2 = view.findViewById(R.id.viewDay2);
+        ImageView imageView3 = view.findViewById(R.id.viewDay3);
+
+
 
         Bundle args = getArguments();
         if (args != null) {
@@ -142,9 +149,48 @@ public class LocationFragment extends Fragment {
             maxTempDay2View.setText(maxTempDay2);
             maxTempDay3View.setText(maxTempDay3);
 
-            conDay1TextView.setText(conDay1);
-            conDay2TextView.setText(conDay2);
-            conDay3TextView.setText(conDay3);
+            //conDay1TextView.setText(conDay1);
+            //conDay2TextView.setText(conDay2);
+            //conDay3TextView.setText(conDay3);
+
+            if (conDay1.equals("Sunny") || conDay1.equals("Clear Sky"))  {
+                imageView1.setImageResource(R.drawable.day_clear);
+            } else if (conDay1.equals("Sunny Intervals") || conDay1.equals("Partly Cloudy")) {
+                imageView1.setImageResource(R.drawable.day_partial_cloud);
+            } else if (conDay1.equals("Light Rain")) {
+                imageView1.setImageResource(R.drawable.rain);
+            } else if (conDay1.equals("Thundery Showers")) {
+                imageView1.setImageResource(R.drawable.rain_thunder);
+            } else {
+                // Default image or handling for other cases
+                imageView1.setImageResource(R.drawable.rain_thunder);
+            }
+
+            if (conDay2.equals("Sunny") || conDay2.equals("Clear Sky")){
+                imageView2.setImageResource(R.drawable.day_clear);
+            } else if (conDay2.equals("Sunny Intervals") || conDay2.equals("Partly Cloudy")) {
+                imageView2.setImageResource(R.drawable.day_partial_cloud);
+            } else if (conDay2.equals("Light Rain")) {
+                imageView2.setImageResource(R.drawable.rain);
+            } else if (conDay2.equals("Thundery Showers")) {
+                imageView2.setImageResource(R.drawable.rain_thunder);
+            } else {
+                // Default image or handling for other cases
+                imageView2.setImageResource(R.drawable.rain_thunder);
+            }
+
+            if (conDay3.equals("Sunny") || conDay3.equals("Clear Sky")){
+                imageView3.setImageResource(R.drawable.day_clear);
+            } else if (conDay3.equals("Sunny Intervals") || conDay3.equals("Partly Cloudy")) {
+                imageView3.setImageResource(R.drawable.day_partial_cloud);
+            } else if (conDay3.equals("Light Rain")) {
+                imageView3.setImageResource(R.drawable.rain);
+            } else if (conDay2.equals("Thundery Showers")) {
+                imageView3.setImageResource(R.drawable.rain_thunder);
+            } else {
+                // Default image or handling for other cases
+                imageView3.setImageResource(R.drawable.rain_thunder);
+            }
 
 
 

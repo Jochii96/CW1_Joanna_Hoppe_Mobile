@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00000000"
     tools:context=".Location">
 
     <LinearLayout
@@ -107,17 +108,21 @@
                 android:layout_width="70sp"
                 android:layout_height="50sp"
                 android:layout_marginLeft="20sp"
+                android:layout_marginBottom="5sp"
                 android:layout_weight="1"
-                android:gravity="left"
+                android:background="#00FFFFFF"
+                android:gravity="center"
                 android:text="Day:"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView18"
-                android:layout_width="50sp"
+                android:layout_width="60sp"
                 android:layout_height="50sp"
-                android:layout_marginRight="5sp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginBottom="5sp"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
                 android:gravity="center"
                 android:text="Min Temp:"
                 android:textAlignment="center"
@@ -125,10 +130,13 @@
 
             <TextView
                 android:id="@+id/textView19"
-                android:layout_width="50sp"
+                android:layout_width="60sp"
                 android:layout_height="50sp"
                 android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginBottom="5sp"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
                 android:gravity="center"
                 android:text="Max Temp:"
                 android:textAlignment="center"
@@ -136,10 +144,12 @@
 
             <TextView
                 android:id="@+id/textView20"
-                android:layout_width="80sp"
+                android:layout_width="70sp"
                 android:layout_height="50sp"
                 android:layout_marginRight="20sp"
+                android:layout_marginBottom="5sp"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
                 android:gravity="center"
                 android:text="Conditions:"
                 android:textAlignment="center"
@@ -156,39 +166,48 @@
                 android:layout_width="70sp"
                 android:layout_height="55sp"
                 android:layout_marginLeft="20sp"
+                android:layout_marginBottom="5sp"
                 android:layout_weight="1"
-                android:gravity="left"
+                android:background="#00FFFFFF"
+                android:gravity="center"
                 android:text="TextView"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tempMin1"
-                android:layout_width="50sp"
+                android:layout_width="60sp"
                 android:layout_height="55sp"
-                android:layout_marginRight="5sp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginBottom="5sp"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tempMax1"
-                android:layout_width="50sp"
+                android:layout_width="60sp"
                 android:layout_height="55sp"
                 android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginBottom="5sp"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/conFor1"
-                android:layout_width="80sp"
+            <ImageView
+                android:id="@+id/viewDay1"
+                android:layout_width="70sp"
                 android:layout_height="55sp"
                 android:layout_marginRight="20sp"
+                android:layout_marginBottom="5sp"
                 android:layout_weight="1"
-                android:gravity="top"
+                android:background="#00FFFFFF"
+                android:gravity="center"
                 android:text="TextView"
                 android:textAlignment="center"
                 android:textSize="15sp" />
@@ -205,38 +224,45 @@
                 android:layout_height="55sp"
                 android:layout_marginLeft="20sp"
                 android:layout_weight="1"
-                android:gravity="left"
+                android:background="#00FFFFFF"
+                android:gravity="center"
                 android:text="TextView"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tempMin2"
-                android:layout_width="50sp"
+                android:layout_width="60sp"
                 android:layout_height="55sp"
-                android:layout_marginRight="5sp"
+                android:layout_marginLeft="5sp"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tempMax2"
-                android:layout_width="50sp"
+                android:layout_width="60sp"
                 android:layout_height="55sp"
                 android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginBottom="5sp"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/conFor2"
-                android:layout_width="80sp"
+            <ImageView
+                android:id="@+id/viewDay2"
+                android:layout_width="70sp"
                 android:layout_height="55sp"
                 android:layout_marginRight="20sp"
+                android:layout_marginBottom="5sp"
                 android:layout_weight="1"
-                android:gravity="top"
+                android:background="#00FFFFFF"
+                android:gravity="center"
                 android:text="TextView"
                 android:textAlignment="center"
                 android:textSize="15sp" />
@@ -253,38 +279,43 @@
                 android:layout_height="55sp"
                 android:layout_marginLeft="20sp"
                 android:layout_weight="1"
-                android:gravity="left"
+                android:background="#00FFFFFF"
+                android:gravity="center"
                 android:text="TextView"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tempMin3"
-                android:layout_width="50sp"
+                android:layout_width="60sp"
                 android:layout_height="55sp"
-                android:layout_marginRight="5sp"
+                android:layout_marginLeft="5sp"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tempMax3"
-                android:layout_width="50sp"
+                android:layout_width="60sp"
                 android:layout_height="55sp"
                 android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
                 android:gravity="center"
                 android:text="TextView"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/conFor3"
-                android:layout_width="80sp"
+            <ImageView
+                android:id="@+id/viewDay3"
+                android:layout_width="70sp"
                 android:layout_height="55sp"
                 android:layout_marginRight="20sp"
                 android:layout_weight="1"
-                android:gravity="top"
+                android:background="#009ABBB8"
+                android:gravity="center"
                 android:text="TextView"
                 android:textAlignment="center"
                 android:textSize="15sp" />
