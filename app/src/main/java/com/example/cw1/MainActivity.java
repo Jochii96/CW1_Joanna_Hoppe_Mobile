@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         locationIdToNameMap.put("287286", "Oman");
         locationIdToNameMap.put("934154", "Mauritius");
         locationIdToNameMap.put("1185241", "Bangladesh");
+        locationIdToNameMap.put("2193733", "Auckland");
     }
 
     private void fetchWeatherForAllLocations() {
@@ -223,81 +224,113 @@ public class MainActivity extends AppCompatActivity {
                     xpp.setInput(new StringReader(xml));
                     int eventType = xpp.getEventType();
                     boolean insideItem = false;
-                    int dayCounter = 0; // To keep track of the forecast day.
+                    int dayCounter = 0;
 
-                    Log.d("MyTag", "Starting XML Parsing"); // Add this line
+                    Log.d("MyTag", "Starting XML Parsing");
 
                     while (eventType != XmlPullParser.END_DOCUMENT) {
                         if (eventType == XmlPullParser.START_TAG) {
+                            Log.d("MyTag", "Start tag: " + xpp.getName());
+
                             if ("item".equals(xpp.getName())) {
                                 insideItem = true;
-                                dayCounter++; // Increment day counter when a new <item> is found.
-                                Log.d("MyTag", "Found an item. Day counter: " + dayCounter); // Add this line
-                            } else if (insideItem && "title".equals(xpp.getName())) {
+                                dayCounter++;
+                                Log.d("MyTag", "Found an item. Day counter: " + dayCounter);
+                            } else if (insideItem) {
+                                if ("title".equals(xpp.getName())) {
+                                    String titleText = xpp.nextText();
+                                    Log.d("MyTag", "Title text: " + titleText);
 
-                                String titleText = xpp.nextText();
-                                String dayFor = titleText.split(":")[0].trim();
+                                    // Parsing logic for "title" tag
+                                    String dayFor = titleText.split(":")[0].trim();
+                                    String tempMin = titleText.contains("Minimum Temperature") ? titleText.split("Minimum Temperature:")[1].split("°")[0].trim() : "N/A";
+                                    String tempMax = titleText.contains("Maximum Temperature") ? titleText.split("Maximum Temperature:")[1].split("°")[0].trim() : "N/A";
+                                    String[] conPart = titleText.split("°C");
+                                    String[] commaParts = conPart[0].split(",");
+                                    String conSegment = commaParts[commaParts.length - 2];
+                                    String conDay = conSegment.split(":")[1].split("\\(")[0].trim();
 
+                                    // Assigning values based on dayCounter
+                                    switch (dayCounter) {
+                                        case 1:
+                                            forecast.setDayDay1(dayFor);
+                                            forecast.setTempMinDay1(tempMin);
+                                            forecast.setTempMaxDay1(tempMax);
+                                            forecast.setConDay1(conDay);
+                                            break;
+                                        case 2:
+                                            forecast.setDayDay2(dayFor);
+                                            forecast.setTempMinDay2(tempMin);
+                                            forecast.setTempMaxDay2(tempMax);
+                                            forecast.setConDay2(conDay);
+                                            break;
+                                        case 3:
+                                            forecast.setDayDay3(dayFor);
+                                            forecast.setTempMinDay3(tempMin);
+                                            forecast.setTempMaxDay3(tempMax);
+                                            forecast.setConDay3(conDay);
+                                            break;
+                                    }
+                                } else if ("description".equals(xpp.getName())) {
+                                    String descriptionText = xpp.nextText();
+                                    Log.d("MyTag", "Description text: " + descriptionText);
 
-                                String[] temperaturePart = titleText.split("Â°C")[0].split(",");  // Isolate the part ending with the temperature
-                                String tempMin= temperaturePart[temperaturePart.length - 1].split(" ")[3].trim(); // Extract "16"
+                                    // Parsing logic for "description" tag
+                                    String windSpeed = "", pressure = "", humidity = "", uvRisk = "";
+                                    for (String part : descriptionText.split(", ")) {
+                                        if (part.contains("Wind Speed")) {
+                                            windSpeed = part.split(": ")[1];
+                                        } else if (part.contains("Pressure")) {
+                                            pressure = part.split(": ")[1];
+                                        } else if (part.contains("Humidity")) {
+                                            humidity = part.split(": ")[1];
+                                        } else if (part.contains("UV Risk")) {
+                                            uvRisk = part.split(": ")[1];
+                                        }
+                                    }
 
-
-                                String tempMax = "N/A";
-
-                                // Check if title contains "Maximum Temperature" to attempt extraction
-                                if (titleText.contains("Maximum Temperature")) {
-                                    // Adjusted split logic to target the maximum temperature specifically
-                                    String[] maxTemperaturePart = titleText.split("Maximum Temperature:")[1].split("Â°C")[0].trim().split(" ");
-                                    tempMax = maxTemperaturePart[0]; // Extract maximum temperature
-                                }
-
-
-                                String[] conPart = titleText.split("°C");
-                                String[] commaParts = conPart[0].split(",");
-                                String conSegment = commaParts[commaParts.length - 2];
-                                String conDay = conSegment.split(":")[1].split("\\(")[0].trim();
-
-
-                                Log.d("MyTag", "Title text for day " + dayCounter + ": " + titleText); // Add this line
-
-                                // Directly assign the fetched title to the corresponding day's condition
-                                switch (dayCounter) {
-                                    case 1:
-                                        forecast.setDayDay1(dayFor);
-                                        forecast.setTempMinDay1(tempMin);
-                                        forecast.setTempMaxDay1(tempMax);
-                                        forecast.setConDay1(conDay);
-                                        break;
-                                    case 2:
-                                        forecast.setDayDay2(dayFor);
-                                        forecast.setTempMinDay2(tempMin);
-                                        forecast.setTempMaxDay2(tempMax);
-                                        forecast.setConDay2(conDay);
-                                        break;
-                                    case 3:
-                                        forecast.setDayDay3(dayFor);
-                                        forecast.setTempMinDay3(tempMin);
-                                        forecast.setTempMaxDay3(tempMax);
-                                        forecast.setConDay3(conDay);
-                                        break;
+                                    // Update the forecast object based on dayCounter
+                                    switch (dayCounter) {
+                                        case 1:
+                                            forecast.setWindSpeedDay1(windSpeed);
+                                            forecast.setPressureDay1(pressure);
+                                            forecast.setHumidityDay1(humidity);
+                                            forecast.setUvRiskDay1(uvRisk);
+                                            break;
+                                        case 2:
+                                            forecast.setWindSpeedDay2(windSpeed);
+                                            forecast.setPressureDay2(pressure);
+                                            forecast.setHumidityDay2(humidity);
+                                            forecast.setUvRiskDay2(uvRisk);
+                                            break;
+                                        case 3:
+                                            forecast.setWindSpeedDay3(windSpeed);
+                                            forecast.setPressureDay3(pressure);
+                                            forecast.setHumidityDay3(humidity);
+                                            forecast.setUvRiskDay3(uvRisk);
+                                            break;
+                                    }
                                 }
                             }
-                        } else if (eventType == XmlPullParser.END_TAG && "item".equals(xpp.getName())) {
-                            insideItem = false;
-                            Log.d("MyTag", "Ending an item."); // Add this line
+                        } else if (eventType == XmlPullParser.END_TAG) {
+                            Log.d("MyTag", "End tag: " + xpp.getName());
+                            if ("item".equals(xpp.getName())) {
+                                insideItem = false;
+                                Log.d("MyTag", "Ending an item.");
+                            }
                         }
                         eventType = xpp.next();
                     }
-                    Log.d("MyTag", "Finished XML Parsing"); // Add this line
-
-
-
+                    Log.d("MyTag", "Finished XML Parsing");
                 } catch (Exception e) {
                     Log.e("MyTag", "Parsing error", e);
                 }
 
-                final String locationName = locationIdToNameMap.get(locationId);
+
+
+
+
+            final String locationName = locationIdToNameMap.get(locationId);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

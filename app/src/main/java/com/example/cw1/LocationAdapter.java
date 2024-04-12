@@ -31,10 +31,37 @@ public class LocationAdapter extends FragmentStateAdapter {
         Weather weather = weatherData.getOrDefault(locationName, new Weather());
         ThreeDayForecast forecast = forecastData.getOrDefault(locationName, new ThreeDayForecast());
 
-        return LocationFragment.newInstance(locationName, weather.getDay(), weather.getTemperature(), weather.getTime(), weather.getDate(),
-                forecast.getSetDay1(), forecast.getSetDay2(), forecast.getSetDay3(), forecast.getTempMinDay1(), forecast.getTempMinDay2(),
-                forecast.getTempMinDay3(), forecast.getTempMaxDay1(), forecast.getTempMaxDay2(), forecast.getTempMaxDay3(), forecast.getConDay1(),
-                forecast.getConDay2(), forecast.getConDay3());
+        return LocationFragment.newInstance(
+                locationName,
+                weather.getDay(),
+                weather.getTemperature(),
+                weather.getTime(),
+                weather.getDate(),
+                forecast.getSetDay1(),
+                forecast.getSetDay2(),
+                forecast.getSetDay3(),
+                forecast.getTempMinDay1(),
+                forecast.getTempMinDay2(),
+                forecast.getTempMinDay3(),
+                forecast.getTempMaxDay1(),
+                forecast.getTempMaxDay2(),
+                forecast.getTempMaxDay3(),
+                forecast.getConDay1(),
+                forecast.getConDay2(),
+                forecast.getConDay3(),
+                forecast.getWindSpeedDay1(),
+                forecast.getWindSpeedDay2(),
+                forecast.getWindSpeedDay3(),
+                forecast.getPressureDay1(),
+                forecast.getPressureDay2(),
+                forecast.getPressureDay3(),
+                forecast.getHumidityDay1(),
+                forecast.getHumidityDay2(),
+                forecast.getHumidityDay3(),
+                forecast.getUvRiskDay1(),
+                forecast.getUvRiskDay2(),
+                forecast.getUvRiskDay3()
+        );
     }
 
     @Override

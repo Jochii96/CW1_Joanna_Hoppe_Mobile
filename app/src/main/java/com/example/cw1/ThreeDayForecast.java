@@ -17,6 +17,18 @@ package com.example.cw1;
         private String setConDay2;
         private String setConDay3;
 
+        // UV Risks
+        private String uvRiskDay1, uvRiskDay2, uvRiskDay3;
+
+        // Pressures
+        private String pressureDay1, pressureDay2, pressureDay3;
+
+        // Humidity
+        private String humidityDay1, humidityDay2, humidityDay3;
+
+        // Wind Speeds
+        private String windSpeedDay1, windSpeedDay2, windSpeedDay3;
+
         public ThreeDayForecast() {}
 
         public String getSetDay1() {
@@ -120,6 +132,107 @@ package com.example.cw1;
         public void setConDay3(String setConDay3) {
             this.setConDay3 = setConDay3;
         }
+
+        // Getters and Setters for Wind Speed
+        public String getWindSpeedDay1() {
+            return windSpeedDay1;
+        }
+
+        public void setWindSpeedDay1(String windSpeedDay1) {
+            this.windSpeedDay1 = windSpeedDay1;
+        }
+
+        public String getWindSpeedDay2() {
+            return windSpeedDay2;
+        }
+
+        public void setWindSpeedDay2(String windSpeedDay2) {
+            this.windSpeedDay2 = windSpeedDay2;
+        }
+
+        public String getWindSpeedDay3() {
+            return windSpeedDay3;
+        }
+
+        public void setWindSpeedDay3(String windSpeedDay3) {
+            this.windSpeedDay3 = windSpeedDay3;
+        }
+
+        // Getters and Setters for UV Risk
+        public String getUvRiskDay1() {
+            return uvRiskDay1;
+        }
+
+        public void setUvRiskDay1(String uvRiskDay1) {
+            this.uvRiskDay1 = uvRiskDay1;
+        }
+
+        public String getUvRiskDay2() {
+            return uvRiskDay2;
+        }
+
+        public void setUvRiskDay2(String uvRiskDay2) {
+            this.uvRiskDay2 = uvRiskDay2;
+        }
+
+        public String getUvRiskDay3() {
+            return uvRiskDay3;
+        }
+
+        public void setUvRiskDay3(String uvRiskDay3) {
+            this.uvRiskDay3 = uvRiskDay3;
+        }
+
+        // Getters and Setters for Pressure
+        public String getPressureDay1() {
+            return pressureDay1;
+        }
+
+        public void setPressureDay1(String pressureDay1) {
+            this.pressureDay1 = pressureDay1;
+        }
+
+        public String getPressureDay2() {
+            return pressureDay2;
+        }
+
+        public void setPressureDay2(String pressureDay2) {
+            this.pressureDay2 = pressureDay2;
+        }
+
+        public String getPressureDay3() {
+            return pressureDay3;
+        }
+
+        public void setPressureDay3(String pressureDay3) {
+            this.pressureDay3 = pressureDay3;
+        }
+
+        // Getters and Setters for Humidity
+        public String getHumidityDay1() {
+            return humidityDay1;
+        }
+
+        public void setHumidityDay1(String humidityDay1) {
+            this.humidityDay1 = humidityDay1;
+        }
+
+        public String getHumidityDay2() {
+            return humidityDay2;
+        }
+
+        public void setHumidityDay2(String humidityDay2) {
+            this.humidityDay2 = humidityDay2;
+        }
+
+        public String getHumidityDay3() {
+            return humidityDay3;
+        }
+
+        public void setHumidityDay3(String humidityDay3) {
+            this.humidityDay3 = humidityDay3;
+        }
     }
+
 
 
