@@ -232,83 +232,222 @@
             android:id="@+id/addDay1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp"
+            android:layout_marginTop="10sp"
             android:layout_marginBottom="5sp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/wind1"
-                android:layout_width="15sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="15sp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/windDay1"
-                android:layout_width="wrap_content"
-                android:layout_height="60sp"
-                android:layout_marginLeft="5sp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center|left"
-                android:text="TextView"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/pr1"
-                android:layout_width="15sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_weight="1" />
+                <ImageView
+                    android:id="@+id/wind1"
+                    android:layout_width="15sp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20sp"
+                    android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/pressureDay1"
-                android:layout_width="wrap_content"
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#D3CFD2" />
+
+                <ImageView
+                    android:id="@+id/pr1"
+                    android:layout_width="15sp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <ImageView
+                    android:id="@+id/hum1"
+                    android:layout_width="15sp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1" />
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <ImageView
+                    android:id="@+id/uv1"
+                    android:layout_width="15sp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="20sp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="60sp"
-                android:layout_marginLeft="5sp"
                 android:layout_weight="1"
-                android:gravity="center|left"
-                android:text="TextView"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/hum1"
-                android:layout_width="15sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/textView55"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="20sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Wind"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/humidityDay1"
-                android:layout_width="wrap_content"
+                <View
+                    android:id="@+id/view33"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#D3CFD2" />
+
+                <TextView
+                    android:id="@+id/textView73"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Pressure"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view0"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <TextView
+                    android:id="@+id/textView86"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Humidity"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <TextView
+                    android:id="@+id/textView52"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="20sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="UV Index"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="60sp"
-                android:layout_marginLeft="5sp"
                 android:layout_weight="1"
-                android:gravity="center|left"
-                android:text="TextView"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/uv1"
-                android:layout_width="15sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/windDay1"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="20sp"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:text="TextView"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/uvRiskDay1"
-                android:layout_width="wrap_content"
-                android:layout_height="60sp"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="15sp"
-                android:layout_weight="0.07"
-                android:gravity="center|left"
-                android:text="TextView"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                <View
+                    android:id="@+id/view18"
+                    android:layout_width="1dp"
+                    android:layout_height="30sp"
+                    android:layout_weight="0"
+                    android:background="#D3CFD2" />
+
+                <TextView
+                    android:id="@+id/pressureDay1"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:text="TextView"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view14"
+                    android:layout_width="1dp"
+                    android:layout_height="30sp"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <TextView
+                    android:id="@+id/humidityDay1"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:text="TextView"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view15"
+                    android:layout_width="1dp"
+                    android:layout_height="30sp"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <TextView
+                    android:id="@+id/uvRiskDay1"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="20sp"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:text="TextView"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -371,85 +510,225 @@
             android:id="@+id/addDay2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp"
+            android:layout_marginTop="10sp"
             android:layout_marginBottom="5sp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/wind2"
-                android:layout_width="15sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="15sp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/windDay2"
-                android:layout_width="wrap_content"
-                android:layout_height="60sp"
-                android:layout_marginLeft="5sp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center|left"
-                android:text="TextView"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/pr2"
-                android:layout_width="15sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_weight="1" />
+                <ImageView
+                    android:id="@+id/wind2"
+                    android:layout_width="15sp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20sp"
+                    android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/pressureDay2"
-                android:layout_width="wrap_content"
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#D3CFD2" />
+
+                <ImageView
+                    android:id="@+id/pr2"
+                    android:layout_width="15sp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1" />
+
+                <View
+                    android:id="@+id/view8"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <ImageView
+                    android:id="@+id/hum2"
+                    android:layout_width="15sp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1" />
+
+                <View
+                    android:id="@+id/view9"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <ImageView
+                    android:id="@+id/uv2"
+                    android:layout_width="15sp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="20sp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="60sp"
-                android:layout_marginLeft="5sp"
                 android:layout_weight="1"
-                android:gravity="center|left"
-                android:text="TextView"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/hum2"
-                android:layout_width="15sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="20sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Wind"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/humidityDay2"
-                android:layout_width="wrap_content"
+                <View
+                    android:id="@+id/view6"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#D3CFD2" />
+
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Pressure"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view10"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <TextView
+                    android:id="@+id/textView89"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Humidity"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view11"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <TextView
+                    android:id="@+id/textView54"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="20sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="UV Index"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="60sp"
-                android:layout_marginLeft="5sp"
                 android:layout_weight="1"
-                android:gravity="center|left"
-                android:text="TextView"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/uv2"
-                android:layout_width="15sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/windDay2"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="20sp"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:text="TextView"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/uvRiskDay2"
-                android:layout_width="wrap_content"
-                android:layout_height="60sp"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="15sp"
-                android:layout_weight="0.07"
-                android:gravity="center|left"
-                android:text="TextView"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                <View
+                    android:id="@+id/view7"
+                    android:layout_width="1dp"
+                    android:layout_height="30sp"
+                    android:layout_weight="0"
+                    android:background="#D3CFD2" />
+
+                <TextView
+                    android:id="@+id/pressureDay2"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:text="TextView"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view12"
+                    android:layout_width="1dp"
+                    android:layout_height="30sp"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <TextView
+                    android:id="@+id/humidityDay2"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:text="TextView"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view13"
+                    android:layout_width="1dp"
+                    android:layout_height="30sp"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <TextView
+                    android:id="@+id/uvRiskDay2"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="20sp"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:text="TextView"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -508,83 +787,222 @@
             android:id="@+id/addDay3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp"
+            android:layout_marginTop="10sp"
             android:layout_marginBottom="5sp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/wind3"
-                android:layout_width="15sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="15sp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/windDay3"
-                android:layout_width="wrap_content"
-                android:layout_height="60sp"
-                android:layout_marginLeft="5sp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center|left"
-                android:text="TextView"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/pr3"
-                android:layout_width="15sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_weight="1" />
+                <ImageView
+                    android:id="@+id/wind3"
+                    android:layout_width="15sp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20sp"
+                    android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/pressureDay3"
-                android:layout_width="wrap_content"
+                <View
+                    android:id="@+id/view55"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#D3CFD2" />
+
+                <ImageView
+                    android:id="@+id/pr3"
+                    android:layout_width="15sp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1" />
+
+                <View
+                    android:id="@+id/view16"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <ImageView
+                    android:id="@+id/hum3"
+                    android:layout_width="15sp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1" />
+
+                <View
+                    android:id="@+id/view17"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <ImageView
+                    android:id="@+id/uv3"
+                    android:layout_width="15sp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="20sp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="60sp"
-                android:layout_marginLeft="5sp"
                 android:layout_weight="1"
-                android:gravity="center|left"
-                android:text="TextView"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/hum3"
-                android:layout_width="15sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/textView91"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="20sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Wind"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/humidityDay3"
-                android:layout_width="wrap_content"
+                <View
+                    android:id="@+id/view19"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#D3CFD2" />
+
+                <TextView
+                    android:id="@+id/textView77"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Pressure"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view20"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <TextView
+                    android:id="@+id/textView81"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Humidity"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view21"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <TextView
+                    android:id="@+id/textView70"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="20sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="UV Index"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="60sp"
-                android:layout_marginLeft="5sp"
                 android:layout_weight="1"
-                android:gravity="center|left"
-                android:text="TextView"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/uv3"
-                android:layout_width="15sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/windDay3"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="20sp"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:text="TextView"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/uvRiskDay3"
-                android:layout_width="wrap_content"
-                android:layout_height="60sp"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="15sp"
-                android:layout_weight="0.07"
-                android:gravity="center|left"
-                android:text="TextView"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                <View
+                    android:id="@+id/view23"
+                    android:layout_width="1dp"
+                    android:layout_height="30sp"
+                    android:layout_weight="0"
+                    android:background="#D3CFD2" />
+
+                <TextView
+                    android:id="@+id/pressureDay3"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:text="TextView"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view24"
+                    android:layout_width="1dp"
+                    android:layout_height="30sp"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <TextView
+                    android:id="@+id/humidityDay3"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:text="TextView"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view34"
+                    android:layout_width="1dp"
+                    android:layout_height="30sp"
+                    android:layout_weight="0"
+                    android:background="#DFDBDE" />
+
+                <TextView
+                    android:id="@+id/uvRiskDay3"
+                    android:layout_width="15sp"
+                    android:layout_height="60sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="20sp"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:text="TextView"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
         </LinearLayout>
 
