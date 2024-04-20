@@ -1,16 +1,24 @@
+/* MainActivity.java Joanna Hoppe, StudentId: S2337692 */
 package com.example.cw1;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
 import androidx.viewpager2.widget.ViewPager2;
 import java.util.concurrent.ConcurrentHashMap;
 import android.os.Bundle;
 import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
+import java.util.Calendar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
-
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,171 +31,215 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/* Joanna Hoppe, StudentId: S2337692 */
+
+// Main activity class for handling the application's main user interface.
 public class MainActivity extends AppCompatActivity {
-    private ViewPager2 viewPager;
-    private ViewPager2 viewPager2;
 
+/* Joanna Hoppe, StudentId: S2337692 */
 
-    private Map<String, String> locationIdToNameMap = new ConcurrentHashMap<>();
+        private ViewPager2 viewPager; // Component to swipe through pages
+        private ViewPager2 viewPager2; // Second ViewPager, usage not shown in this snippet
+        private Handler handler = new Handler(Looper.getMainLooper()); // Handler for managing threads
+        private Runnable dataUpdateChecker; // Runnable task for scheduled updates
+        private Spinner locationSpinner; // Dropdown menu for selecting locations
+        private Map<String, String> locationIdToNameMap = new HashMap<>(); // Maps location IDs to names
 
-    private Map<String, ThreeDayForecast> forecastData = new HashMap<>();
-    private Map<String, Weather> weatherData = new ConcurrentHashMap<>();
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        populateLocationIdToNameMap();
-        viewPager = findViewById(R.id.viewPager);
-        viewPager2 = findViewById(R.id.viewPager2);
-        fetchWeatherForAllLocations();
-        startAdditionalDataFetching();
-
-
-
-    }
-
-    private void populateLocationIdToNameMap() {
-
-        locationIdToNameMap.put("2648579", "Glasgow");
-        locationIdToNameMap.put("2643743", "London");
-        locationIdToNameMap.put("5128581", "New York");
-        locationIdToNameMap.put("287286", "Oman");
-        locationIdToNameMap.put("934154", "Mauritius");
-        locationIdToNameMap.put("1185241", "Bangladesh");
-        locationIdToNameMap.put("2193733", "Auckland");
-    }
-
-    private void fetchWeatherForAllLocations() {
-        for (String locationId : locationIdToNameMap.keySet()) {
-            startProgress(locationId);
-        }
-    }
-
-    private void startProgress(String locationId) {
-        String url = "https://weather-broker-cdn.api.bbci.co.uk/en/observation/rss/" + locationId;
-        new Thread(new Task(url, locationId)).start();
-    }
-
-    private class Task implements Runnable {
-        private final String url;
-        private final String locationId;
-
-        Task(String url, String locationId) {
-            this.url = url;
-            this.locationId = locationId;
-        }
+        private Map<String, ThreeDayForecast> forecastData = new HashMap<>(); // Stores three-day forecast data by location
+        private Map<String, Weather> weatherData = new ConcurrentHashMap<>(); // Concurrent map to store weather data by location
 
         @Override
-        public void run() {
-            StringBuilder result = new StringBuilder();
-            try {
-                URL aurl = new URL(url);
-                URLConnection yc = aurl.openConnection();
-                BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-                String inputLine;
-                while ((inputLine = in.readLine()) != null) {
-                    result.append(inputLine);
-                }
-                in.close();
-            } catch (IOException e) {
-                Log.e("MyTag", "IOException in reading XML", e);
-            }
-            parseXML(result.toString(), locationId);
-        }
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main); // Setting the content view from a layout resource
+            locationSpinner = findViewById(R.id.locationSpinner); // Finding the spinner by its ID
+            populateLocationIdToNameMap(); // Populating the map with location IDs and names
 
-        private void parseXML(String xml, String locationId) {
-            final Weather weather = new Weather();
-            try {
-                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-                factory.setNamespaceAware(true);
-                XmlPullParser xpp = factory.newPullParser();
+            // Setting up the spinner with location names
+            List<String> locationNames = new ArrayList<>();
+            locationNames.add("Select Location"); // Adding default selection
+            locationNames.addAll(locationIdToNameMap.values()); // Adding all location names
 
-                xpp.setInput(new StringReader(xml));
-                int eventType = xpp.getEventType();
-                boolean insideItem = false;
+            // Creating an ArrayAdapter for the spinner
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, locationNames);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            locationSpinner.setAdapter(adapter);
+            locationSpinner.setSelection(0); // Setting initial selection
 
-                while (eventType != XmlPullParser.END_DOCUMENT) {
-                    if (eventType == XmlPullParser.START_TAG) {
-                        if ("item".equals(xpp.getName())) {
-                            insideItem = true;
-                        } else if (insideItem && "title".equals(xpp.getName())) {
-                            // Extracting weather condition from the title
-                            String titleText = xpp.nextText();
-                            String day = titleText.split(" - ")[0].trim();
-                            weather.setDay(day);
-
-                            String[] parts = titleText.split(" - ")[1].split(":", 3);
-                            String time = parts[0] + ":" + parts[1].trim().split(" ")[0];
-                            weather.setTime(time);
-
-                            String[] temperaturePart = titleText.split("Â°C")[0].split(",");  // Isolate the part ending with the temperature
-                            String temperature = temperaturePart[temperaturePart.length - 1].split(" ")[1].trim(); // Extract "16"
-                            weather.setTemperature(temperature);
-
-
-
-                        } else if (insideItem && "pubDate".equals(xpp.getName())) {
-                            String pubDateFullText = xpp.nextText();
-                            // Extracting publication date from the pubDate tag
-                            String[] dateParts = pubDateFullText.split(" ");
-                            String date = dateParts[1] + " " + dateParts[2] + " " + dateParts[3];
-                            weather.setDate(date);
-                        }
-                        // Extend with additional parsing rules as needed
-                    } else if (eventType == XmlPullParser.END_TAG && "item".equals(xpp.getName())) {
-                        insideItem = false;
-                    }
-                    eventType = xpp.next();
-                }
-            } catch (Exception e) {
-                Log.e("MyTag", "Parsing error", e);
-            }
-
-            final String locationName = locationIdToNameMap.get(locationId);
-            runOnUiThread(new Runnable() {
+            // Setting an item selected listener for the spinner
+            locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void run() {
-                    updateWeatherData(locationName, weather);
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (position > 0 && viewPager != null) {
+                        viewPager.setCurrentItem(position - 1); // Setting the corresponding page in the ViewPager
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    // Optional handling if nothing is selected
                 }
             });
+
+            viewPager = findViewById(R.id.viewPager); // Finding the ViewPager by its ID
+            viewPager2 = findViewById(R.id.viewPager2); // Finding the second ViewPager
+            fetchWeatherForAllLocations(); // Fetching initial weather data for all locations
+            startAdditionalDataFetching(); // Starting additional data fetching tasks
+
+            setupDataUpdateChecker(); // Setting up a task to check for updates at specific times
         }
 
-        private void updateWeatherData(String locationName, Weather weather) {
-            if (locationName != null && weather != null) {
-                weatherData.put(locationName, weather);
-            }
-
-            if (weatherData.size() == locationIdToNameMap.size()) {
-                updateViewPager();
-            }
+        // Method to populate the location ID to name map
+        private void populateLocationIdToNameMap() {
+            locationIdToNameMap.put("2648579", "Glasgow");
+            locationIdToNameMap.put("2643743", "London");
+            locationIdToNameMap.put("5128581", "New York");
+            locationIdToNameMap.put("287286", "Oman");
+            locationIdToNameMap.put("934154", "Mauritius");
+            locationIdToNameMap.put("1185241", "Bangladesh");
         }
 
+        // Setup periodic checking for data updates
+        private void setupDataUpdateChecker() {
+            dataUpdateChecker = new Runnable() {
+                @Override
+                public void run() {
+                    Calendar now = Calendar.getInstance();
+                    int hour = now.get(Calendar.HOUR_OF_DAY);
+                    int minute = now.get(Calendar.MINUTE);
+                    // Check if the current time is 8 AM or 8 PM
+                    if ((hour == 8 || hour == 20) && minute == 0) {
+                        fetchWeatherForAllLocations(); // Fetch weather data if conditions are met
+                    }
+                    // Post a delay for the next check
+                    handler.postDelayed(this, 3600000); // 1 hour delay
+                }
+            };
+            // Initial delay setup to synchronize with the top of the next minute
+            handler.postDelayed(dataUpdateChecker, 60000 - (Calendar.getInstance().get(Calendar.SECOND) * 1000));
+        }
 
-
-        // Check if all weather data is fetched and parsed
-
-    }
-
-
-
-        // Existing fields and methods...
-
-        // New method to start fetching additional data
-        private void startAdditionalDataFetching() {
+        // Method to fetch weather data for all locations
+        private void fetchWeatherForAllLocations() {
             for (String locationId : locationIdToNameMap.keySet()) {
-                String newUrl = "https://weather-broker-cdn.api.bbci.co.uk/en/forecast/rss/3day/" + locationId;
-                new Thread(new AdditionalDataTask(newUrl, locationId)).start();
+                startProgress(locationId); // Start fetching data for each location
             }
         }
 
-        // AdditionalDataTask class
-        private class AdditionalDataTask implements Runnable {
+        // Start a background thread to fetch data from a URL
+        private void startProgress(String locationId) {
+            String url = "https://weather-broker-cdn.api.bbci.co.uk/en/observation/rss/" + locationId;
+            new Thread(new Task(url, locationId)).start(); // Start thread with the URL and location ID
+        }
+
+        // Task class to handle fetching and parsing XML data
+        private class Task implements Runnable {
             private final String url;
             private final String locationId;
 
+            Task(String url, String locationId) {
+                this.url = url;
+                this.locationId = locationId;
+            }
 
+            @Override
+            public void run() {
+                StringBuilder result = new StringBuilder();
+                try {
+                    URL aurl = new URL(url);
+                    URLConnection yc = aurl.openConnection();
+                    BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+                    String inputLine;
+                    while ((inputLine = in.readLine()) != null) {
+                        result.append(inputLine); // Append each line of the response
+                    }
+                    in.close();
+                } catch (IOException e) {
+                    Log.e("MyTag", "IOException in reading XML", e); // Log errors if any
+                }
+                parseXML(result.toString(), locationId); // Parse the accumulated string as XML
+            }
+
+            // Method to parse XML data and update the weather object
+            private void parseXML(String xml, String locationId) {
+                final Weather weather = new Weather();
+                try {
+                    XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+                    factory.setNamespaceAware(true);
+                    XmlPullParser xpp = factory.newPullParser();
+
+                    xpp.setInput(new StringReader(xml));
+                    int eventType = xpp.getEventType();
+                    boolean insideItem = false;
+
+                    while (eventType != XmlPullParser.END_DOCUMENT) {
+                        if (eventType == XmlPullParser.START_TAG) {
+                            if ("item".equals(xpp.getName())) {
+                                insideItem = true;
+                            } else if (insideItem && "title".equals(xpp.getName())) {
+
+                                String titleText = xpp.nextText();
+                                String day = titleText.split(" - ")[0].trim();
+                                weather.setDay(day);
+
+                                String[] parts = titleText.split(" - ")[1].split(":", 3);
+                                String time = parts[0] + ":" + parts[1].trim().split(" ")[0];
+                                weather.setTime(time);
+
+                                String[] temperaturePart = titleText.split("Â°C")[0].split(",");
+                                String temperature = temperaturePart[temperaturePart.length - 1].split(" ")[1].trim();
+                                weather.setTemperature(temperature);
+
+                            } else if (insideItem && "pubDate".equals(xpp.getName())) {
+                                String pubDateFullText = xpp.nextText();
+
+                                String[] dateParts = pubDateFullText.split(" ");
+                                String date = dateParts[1] + " " + dateParts[2] + " " + dateParts[3];
+                                weather.setDate(date);
+                            }
+
+                        } else if (eventType == XmlPullParser.END_TAG && "item".equals(xpp.getName())) {
+                            insideItem = false;
+                        }
+                        eventType = xpp.next();
+                    }
+                } catch (Exception e) {
+                    Log.e("MyTag", "Parsing error", e); // Log parsing errors
+                }
+
+                final String locationName = locationIdToNameMap.get(locationId);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateWeatherData(locationName, weather); // Update UI with new data
+                    }
+                });
+            }
+
+            // Method to update weather data in the main thread
+            private void updateWeatherData(String locationName, Weather weather) {
+                if (locationName != null && weather != null) {
+                    weatherData.put(locationName, weather);
+                }
+
+                if (weatherData.size() == locationIdToNameMap.size()) {
+                    updateViewPager(); // Update ViewPager if all data is fetched
+                }
+            }
+        }
+
+        // Method to fetch additional forecast data
+        private void startAdditionalDataFetching() {
+            for (String locationId : locationIdToNameMap.keySet()) {
+                String newUrl = "https://weather-broker-cdn.api.bbci.co.uk/en/forecast/rss/3day/" + locationId;
+                new Thread(new AdditionalDataTask(newUrl, locationId)).start(); // Start thread for each location
+            }
+        }
+
+        // Task class for fetching and parsing three-day forecast data
+        private class AdditionalDataTask implements Runnable {
+            private final String url;
+            private final String locationId;
 
             AdditionalDataTask(String url, String locationId) {
                 this.url = url;
@@ -203,16 +255,17 @@ public class MainActivity extends AppCompatActivity {
                     BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
                     String inputLine;
                     while ((inputLine = in.readLine()) != null) {
-                        result.append(inputLine);
+                        result.append(inputLine); // Accumulate response data
                     }
                     in.close();
                 } catch (IOException e) {
-                    Log.e("MyTag", "IOException in reading XML", e);
+                    Log.e("MyTag", "IOException in reading XML", e); // Log errors if any
                 }
-                // Assuming you directly use the fetched data
-                parseThreeDayForecastXML(result.toString(), locationId);
+
+                parseThreeDayForecastXML(result.toString(), locationId); // Parse the result as XML
             }
 
+            // Method to parse three-day forecast data
             private void parseThreeDayForecastXML(String xml, String locationId) {
                 final ThreeDayForecast forecast = new ThreeDayForecast();
 
@@ -323,42 +376,46 @@ public class MainActivity extends AppCompatActivity {
                     }
                     Log.d("MyTag", "Finished XML Parsing");
                 } catch (Exception e) {
-                    Log.e("MyTag", "Parsing error", e);
+                    Log.e("MyTag", "Parsing error", e); // Log parsing errors
                 }
 
-
-
-
-
-            final String locationName = locationIdToNameMap.get(locationId);
+                final String locationName = locationIdToNameMap.get(locationId);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        updateForecastData(locationName, forecast);
+                        updateForecastData(locationName, forecast); // Update UI with new forecast data
                     }
                 });
             }
 
+            // Method to update forecast data in the main thread
             private void updateForecastData(String locationName, ThreeDayForecast forecast) {
                 if (locationName != null && forecast != null) {
-                    forecastData.put(locationName, forecast);
+                    forecastData.put(locationName, forecast); // Update forecast data map
                 }
 
                 if (forecastData.size() == locationIdToNameMap.size()) {
-                    updateViewPager();
+                    updateViewPager(); // Update ViewPager if all data is fetched
                 }
-            }}
-            // Method to handle new data (to be implemented)
+            }
+        }
+
+        // Method to update the ViewPager with the latest data
         private void updateViewPager() {
             List<String> locationNames = new ArrayList<>(locationIdToNameMap.values());
             LocationAdapter adapter = new LocationAdapter(this, locationNames, weatherData, forecastData);
-            viewPager.setAdapter(adapter);
+            viewPager.setAdapter(adapter); // Set adapter for ViewPager
 
-            viewPager.setCurrentItem(Integer.MAX_VALUE / 2, false);
+            viewPager.setCurrentItem(Integer.MAX_VALUE / 2, false); // Set initial item for infinite scroll illusion
+        }
+
+        @Override
+        protected void onDestroy() {
+            super.onDestroy();
+            handler.removeCallbacks(dataUpdateChecker); // Clean up to avoid memory leaks
         }
 
     }
-
 
 
 

@@ -1,3 +1,4 @@
+/* LocationFragment.java Joanna Hoppe, StudentId: S2337692 */
 package com.example.cw1;
 
 import android.os.Bundle;
@@ -11,8 +12,26 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.squareup.picasso.Picasso;
+import pl.droidsonroids.gif.GifImageView;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+/* Joanna Hoppe, StudentId: S2337692 */
+public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
-public class LocationFragment extends Fragment {
+/* Joanna Hoppe, StudentId: S2337692 */
+
+    // Google Map reference
+    private GoogleMap gMap;
+
+    // Define key constants for data passed to this fragment
     private static final String ARG_LOCATION_NAME = "locationName";
     private static final String ARG_DAY_DAY = "day";
     private static final String ARG_TEMPERATURE = "temperature";
@@ -51,10 +70,23 @@ public class LocationFragment extends Fragment {
     private static final String ARG_UV_RISK_DAY2 = "uvRiskDay2";
     private static final String ARG_UV_RISK_DAY3 = "uvRiskDay3";
 
+    // Handling map ready event to place a marker on the map
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        Bundle args = getArguments();
+        double latitude = args.getDouble("latitude", 0); // Default to 0 if no value
+        double longitude = args.getDouble("longitude", 0); // Default to 0 if no value
 
+        // Set map location and add marker
+        LatLng location = new LatLng(latitude, longitude);
 
+        googleMap.addMarker(new MarkerOptions().position(location).title(args.getString(ARG_LOCATION_NAME, "Default Name")));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 10)); // Adjust zoom as necessary
 
-    public static LocationFragment newInstance(String locationName, String day, String temperature, String time, String date,
+    }
+
+    // Factory method to create a new instance of this fragment using provided parameters
+    public static LocationFragment newInstance(String locationName,double latitude, double longitude, String day, String temperature, String time, String date,
                                                String dayDay1, String dayDay2, String dayDay3,
                                                String minTempDay1, String minTempDay2, String minTempDay3,
                                                String maxTempDay1, String maxTempDay2, String maxTempDay3,
@@ -104,16 +136,24 @@ public class LocationFragment extends Fragment {
         args.putString(ARG_UV_RISK_DAY2, uvRiskDay2);
         args.putString(ARG_UV_RISK_DAY3, uvRiskDay3);
 
+        args.putDouble("latitude", latitude);
+        args.putDouble("longitude", longitude);
 
 
         fragment.setArguments(args);
         return fragment;
     }
 
-
+    // Initialize the fragment's view and set up UI components
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_location, container, false);
+
+        // Find views by ID and set initial data
+
         TextView locationTextView = view.findViewById(R.id.locationName);
         TextView dateTextView = view.findViewById(R.id.dateObs);
         TextView timeTextView = view.findViewById(R.id.timeObs);
@@ -139,7 +179,9 @@ public class LocationFragment extends Fragment {
         ImageView imageView1 = view.findViewById(R.id.viewDay1);
         ImageView imageView2 = view.findViewById(R.id.viewDay2);
         ImageView imageView3 = view.findViewById(R.id.viewDay3);
+        ImageView imageView4 = view.findViewById(R.id.imageView4);
         ImageView imageView5 = view.findViewById(R.id.imageView5);
+        GifImageView imageView9 = view.findViewById(R.id.imageView9);
 
         TextView windSpeedDay1View = view.findViewById(R.id.windDay1);
         TextView windSpeedDay2View = view.findViewById(R.id.windDay2);
@@ -173,11 +215,30 @@ public class LocationFragment extends Fragment {
         ImageView imageView18 = view.findViewById(R.id.uv2);
         ImageView imageView19 = view.findViewById(R.id.uv3);
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
+
+
+
+
 
 
 
         Bundle args = getArguments();
         if (args != null) {
+
+            double latitude = args.getDouble("latitude", -1);
+            double longitude = args.getDouble("longitude", -1);
+            if (latitude == -1 || longitude == -1) {
+                Log.e("LocationFragment", "Invalid coordinates");
+            } else {
+                Log.d("LocationFragment", "Received coordinates: Latitude = " + latitude + ", Longitude = " + longitude);
+            }
+
+            // Retrieve the information from the fragment arguments, default to "N/A" if not found
+
             String locationName = args.getString(ARG_LOCATION_NAME, "N/A");
             String day = args.getString(ARG_DAY_DAY, "N/A");
             String temperature = args.getString(ARG_TEMPERATURE, "N/A");
@@ -226,6 +287,8 @@ public class LocationFragment extends Fragment {
             Log.d("LocationFragment", "Condition Day 2: " + dayDay2);
             Log.d("LocationFragment", "Condition Day 3: " + dayDay3);
 
+            // Set the text to the values retrieved from fragment arguments
+
             locationTextView.setText(locationName);
             dateTextView.setText(date);
             timeTextView.setText(time);
@@ -265,6 +328,7 @@ public class LocationFragment extends Fragment {
             //conDay3TextView.setText(conDay3);
 
 
+            // Set appropriate images depending on weather condition on a certain day
 
             if ((conDay1.equals("Sunny") || conDay1.equals("Clear Sky")) && dayDay1.equals("Today")) {
                 imageView5.setImageResource(R.drawable.day_clear);
@@ -283,8 +347,7 @@ public class LocationFragment extends Fragment {
             } else if ((conDay1.equals("Thundery Showers") || conDay1.equals("Thunderstorm")) && dayDay1.equals("Tonight")) {
                 imageView5.setImageResource(R.drawable.night_rain_thunder);
             } else {
-                // Default image or handling for other cases
-                imageView5.setImageResource(R.drawable.rick_astley_rickroll);
+                imageView5.setImageResource(R.drawable.pinkcloud);;
             }
 
             if (conDay1.equals("Sunny") || conDay1.equals("Clear Sky"))  {
@@ -305,8 +368,7 @@ public class LocationFragment extends Fragment {
                 imageView1.setImageResource(R.drawable.mist);
                 imageView5.setImageResource(R.drawable.mist);
             } else {
-                // Default image or handling for other cases
-                imageView1.setImageResource(R.drawable.rain_thunder);
+                imageView1.setImageResource(R.drawable.pinkcloud);
             }
 
             if (conDay2.equals("Sunny") || conDay2.equals("Clear Sky")){
@@ -322,12 +384,10 @@ public class LocationFragment extends Fragment {
             } else if (conDay2.equals("Fog")) {
                 imageView2.setImageResource(R.drawable.fog);
             } else {
-                // Default image or handling for other cases
-                Glide.with(this)
-                        .asGif()
-                        .load(R.drawable.rick_astley_rickroll) // make sure your GIF file is in the drawable folder
-                        .into(imageView2);
+                imageView2.setImageResource(R.drawable.pinkcloud);
             }
+
+
 
             if (conDay3.equals("Sunny") || conDay3.equals("Clear Sky")){
                 imageView3.setImageResource(R.drawable.day_clear);
@@ -342,15 +402,36 @@ public class LocationFragment extends Fragment {
             } else if (conDay3.equals("Fog")) {
                 imageView3.setImageResource(R.drawable.fog);
             } else {
-                // Default image or handling for other cases
-                imageView3.setImageResource(R.drawable.rain_thunder);
+                imageView3.setImageResource(R.drawable.pinkcloud);
             }
 
+            // Set an animation based on the parsed temperature range
 
+            String temperatureText = temperatureTextView.getText().toString();
+            String cleanedTemperature = temperatureText.replaceAll("[^\\d-]", ""); // Remove non-numeric characters except the negative sign
+            int tempValue = Integer.parseInt(cleanedTemperature);
+            Log.d("CheckTempValue", "Temperature Value: " + tempValue);
+
+            if (tempValue < 10) {
+                imageView9.setImageResource(R.drawable.cold);
+            } else if (tempValue > 20) {
+                imageView9.setImageResource(R.drawable.hot);
+            } else {
+                imageView9.setImageResource(R.drawable.medium);
+            }
 
         } else {
             Log.d("LocationFragment", "Arguments are null");
         }
+
+        // set a gif of jumping location symbol
+
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.location)
+                .into(imageView4);
+
+        //Set icons for detailed forecast information
 
         imageView6.setImageResource(R.drawable.wind);
         imageView7.setImageResource(R.drawable.wind);
@@ -380,10 +461,11 @@ public class LocationFragment extends Fragment {
         addDay2Layout.setVisibility(View.GONE);
         addDay3Layout.setVisibility(View.GONE);
 
+        // Setting onClick listeners for day forecast expansions
     view.findViewById(R.id.dayFor1).setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            // Toggle visibility
+            // Toggle visibility of additional forecast information
             if (addDay1Layout.getVisibility() == View.VISIBLE) {
                 addDay1Layout.setVisibility(View.GONE);
             } else {
@@ -414,8 +496,16 @@ public class LocationFragment extends Fragment {
         }
     });
 
-    // Return the root view
+
+
+
+
+
+
     return view;
 }
 
+
 }
+
+
